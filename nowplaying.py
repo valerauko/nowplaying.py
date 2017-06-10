@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 #coding=utf-8
-
-import sys, tweepy, urllib
+import sys, os, tweepy, urllib
 from dbus import Bus, DBusException
 import gi
 gi.require_version('Notify', '0.7')
@@ -9,6 +8,7 @@ from gi.repository import Notify
 from mastodon import Mastodon
 
 bus = Bus(Bus.TYPE_SESSION)
+folder = os.path.dirname(__file__)+"/"
 
 def get_clem():
   try:
@@ -24,32 +24,32 @@ clem = get_clem()
 data = clem.Get('org.mpris.MediaPlayer2.Player','Metadata',dbus_interface='org.freedesktop.DBus.Properties')
 
 if not "xesam:artist" in data.keys() or not "xesam:title" in data.keys() or not "xesam:album" in data.keys():
-	print "Error."
-	sys.exit(1)
+  print "Error."
+  sys.exit(1)
 
-str = u'#nowplaying '+unicode(', '.join(data["xesam:artist"]))[:45]+u' - '+unicode(data["xesam:title"])[:40]+('...' if len(unicode(data['xesam:title'])) > 40 else '')+' ('+unicode(data["xesam:album"])[:40]+('...' if len(unicode(data['xesam:album'])) > 40 else '')+')'
+twt = u'#nowplaying '+unicode(', '.join(data["xesam:artist"]))[:45]+u' - '+unicode(data["xesam:title"])[:40]+('...' if len(unicode(data['xesam:title'])) > 40 else '')+' ('+unicode(data["xesam:album"])[:40]+('...' if len(unicode(data['xesam:album'])) > 40 else '')+')'
 
 #print str
 #sys.exit()
 
-str = str.encode('utf8')
+twt = twt.encode('utf8')
 
 try:
-    app = open('twitter_app.txt','r').read().splitlines()
-	auth = tweepy.OAuthHandler(app[0],app[1])
-    usr = open('twitter_user.txt','r').read().splitlines()
-	auth.set_access_token(usr[0],usr[1])
+  app = open(folder+"twitter_app.txt","r").read().splitlines()
+  auth = tweepy.OAuthHandler(app[0],app[1])
+  usr = open(folder+"twitter_user.txt","r").read().splitlines()
+  auth.set_access_token(usr[0],usr[1])
 
-	api = tweepy.API(auth)
-	api.update_status(status=str)
-except TweepError as e:
-	print "Twitter error: ", e.strerror
+  api = tweepy.API(auth)
+  api.update_status(status=twt)
+except Exception, e:
+  print "Twitter error: ", str(e)
 
 try:
-	mastodon = Mastodon(client_id="/home/valerauko/Code/Python/mastodon_app.txt", access_token="/home/valerauko/Code/Python/mastodon_user.txt", api_base_url="https://pawoo.net/")
-	mastodon.toot(str)
-except:
-	print "Mastodon error: ", sys.exec_info()[0]
+  mastodon = Mastodon(client_id=folder+"mastodon_app.txt", access_token=folder+"mastodon_user.txt", api_base_url="https://pawoo.net/")
+  mastodon.toot(twt)
+except Exception, e:
+  print "Mastodon error: ", str(e)
 
 Notify.init('#nowplaying')
 Notify.Notification.new('#nowplaying','#nowplaying sent').show()
