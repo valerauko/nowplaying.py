@@ -8,7 +8,7 @@ from gi.repository import Notify
 from mastodon import Mastodon
 
 bus = Bus(Bus.TYPE_SESSION)
-folder = os.path.dirname(__file__)+"/"
+folder = os.path.dirname(__file__)+"/" # edit this if needed
 
 def get_clem():
   try:
@@ -46,7 +46,7 @@ except Exception, e:
   print "Twitter error: ", str(e)
 
 try:
-  mastodon = Mastodon(client_id=folder+"mastodon_app.txt", access_token=folder+"mastodon_user.txt", api_base_url="https://pawoo.net/")
+  mastodon = Mastodon(client_id=folder+"mastodon_app.txt", access_token=folder+"mastodon_user.txt", api_base_url="https://pawoo.net/") # edit this if needed
   mastodon.toot(twt)
 except Exception, e:
   print "Mastodon error: ", str(e)
