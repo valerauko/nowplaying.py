@@ -30,7 +30,11 @@ if not "xesam:artist" in data.keys() or not "xesam:title" in data.keys() or not 
   print "Error."
   sys.exit(1)
 
-twt = u'#nowplaying '+unicode(', '.join(data["xesam:artist"]))[:45]+u' - '+unicode(data["xesam:title"])[:40]+('...' if len(unicode(data['xesam:title'])) > 40 else '')+' ('+unicode(data["xesam:album"])[:40]+('...' if len(unicode(data['xesam:album'])) > 40 else '')+')'
+twt = u'#nowplaying ' +\
+  unicode(', '.join(data["xesam:artist"])) +\
+  u' - ' +\
+  unicode(data["xesam:title"]) +\
+  ' (' + unicode(data["xesam:album"]) + ')'
 
 # print twt
 # sys.exit()
