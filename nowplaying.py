@@ -7,58 +7,56 @@ gi.require_version('Notify', '0.7')
 from gi.repository import Notify
 from mastodon import Mastodon
 
+NS = 'org.mpris.MediaPlayer2.'
+
 bus = Bus(Bus.TYPE_SESSION)
 folder = os.path.dirname(__file__)+"/" # edit this if needed
 
-def get_clem():
+def try_player(name):
   try:
-    return bus.get_object('org.mpris.MediaPlayer2.quodlibet', '/org/mpris/MediaPlayer2')
-  except:
-    try:
-      return bus.get_object('org.mpris.MediaPlayer2.clementine', '/org/mpris/MediaPlayer2')
-    except DBusException as e:
-      try:
-        return bus.get_object('org.mpris.MediaPlayer2.spotify', '/org/mpris/MediaPlayer2')
-      except DBusException as e:
-        print e
-        sys.exit(1)
+    return bus.get_object(NS + name, '/org/mpris/MediaPlayer2')
+  except DBusException as e:
+    return false
 
-clem = get_clem()
-data = clem.Get('org.mpris.MediaPlayer2.Player','Metadata',dbus_interface='org.freedesktop.DBus.Properties')
+def get_player():
+  players = ['quodlibet', 'clementine', 'spotify']
+  for p in players:
+    player = try_player(p)
+    if player:
+      return player
+  Exception('No player found')
 
-if not "xesam:artist" in data.keys() or not "xesam:title" in data.keys() or not "xesam:album" in data.keys():
-  print "Error."
-  sys.exit(1)
+clem = get_player()
+data = clem.Get(NS + 'Player', 'Metadata', dbus_interface = 'org.freedesktop.DBus.Properties')
+
+if not 'xesam:artist' in data.keys() or not 'xesam:title' in data.keys() or not 'xesam:album' in data.keys():
+  raise Exception('Wrong data format from player')
 
 twt = u'#nowplaying ' +\
-  unicode(', '.join(data["xesam:artist"])) +\
+  unicode(', '.join(data['xesam:artist'])) +\
   u' - ' +\
-  unicode(data["xesam:title"]) +\
-  ' (' + unicode(data["xesam:album"]) + ')'
+  unicode(data['xesam:title']) +\
+  ' (' + unicode(data['xesam:album']) + ')'
 
 # print twt
 # sys.exit()
 
 twt = twt.encode('utf8')
 
-try:
-  app = open(folder+"twitter_app.txt","r").read().splitlines()
-  auth = tweepy.OAuthHandler(app[0],app[1])
-  usr = open(folder+"twitter_user.txt","r").read().splitlines()
-  auth.set_access_token(usr[0],usr[1])
+app = open(folder + 'twitter_app.txt', 'r').read().splitlines()
+auth = tweepy.OAuthHandler(app[0], app[1])
+usr = open(folder + 'twitter_user.txt', 'r').read().splitlines()
+auth.set_access_token(usr[0], usr[1])
 
-  api = tweepy.API(auth)
-  api.update_status(status=twt)
-except Exception, e:
-  print "Twitter error: ", str(e)
+api = tweepy.API(auth)
+api.update_status(status = twt)
 
-try:
-  mastodon = Mastodon(client_id=folder+"mastodon_app.txt", access_token=folder+"mastodon_user.txt", api_base_url="https://pawoo.net/") # edit this if needed
-  mastodon.toot(twt)
-except Exception, e:
-  print "Mastodon error: ", str(e)
+mastodon = Mastodon(client_id = folder + 'mastodon_app.txt',
+                    access_token = folder + 'mastodon_user.txt',
+                    api_base_url = 'https://pawoo.net/') # edit this if needed
+mastodon.toot(twt)
 
 Notify.init('#nowplaying')
-Notify.Notification.new('#nowplaying','#nowplaying sent').show()
+Notify.Notification.new('#nowplaying', '#nowplaying sent').show()
 
 sys.exit(0)
