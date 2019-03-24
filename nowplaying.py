@@ -12,13 +12,16 @@ folder = os.path.dirname(__file__)+"/" # edit this if needed
 
 def get_clem():
   try:
-    return bus.get_object('org.mpris.MediaPlayer2.clementine', '/org/mpris/MediaPlayer2')
-  except DBusException as e:
+    return bus.get_object('org.mpris.MediaPlayer2.quodlibet', '/org/mpris/MediaPlayer2')
+  except:
     try:
-      return bus.get_object('org.mpris.MediaPlayer2.spotify', '/org/mpris/MediaPlayer2')
+      return bus.get_object('org.mpris.MediaPlayer2.clementine', '/org/mpris/MediaPlayer2')
     except DBusException as e:
-      print e
-      sys.exit(1)
+      try:
+        return bus.get_object('org.mpris.MediaPlayer2.spotify', '/org/mpris/MediaPlayer2')
+      except DBusException as e:
+        print e
+        sys.exit(1)
 
 clem = get_clem()
 data = clem.Get('org.mpris.MediaPlayer2.Player','Metadata',dbus_interface='org.freedesktop.DBus.Properties')
@@ -29,8 +32,8 @@ if not "xesam:artist" in data.keys() or not "xesam:title" in data.keys() or not 
 
 twt = u'#nowplaying '+unicode(', '.join(data["xesam:artist"]))[:45]+u' - '+unicode(data["xesam:title"])[:40]+('...' if len(unicode(data['xesam:title'])) > 40 else '')+' ('+unicode(data["xesam:album"])[:40]+('...' if len(unicode(data['xesam:album'])) > 40 else '')+')'
 
-#print str
-#sys.exit()
+# print twt
+# sys.exit()
 
 twt = twt.encode('utf8')
 
