@@ -16,7 +16,7 @@ def try_player(name):
   try:
     return bus.get_object(NS + name, '/org/mpris/MediaPlayer2')
   except DBusException as e:
-    return false
+    return False
 
 def get_player():
   players = ['quodlibet', 'clementine', 'spotify']
