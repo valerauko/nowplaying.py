@@ -33,10 +33,10 @@ if not 'xesam:artist' in data.keys() or not 'xesam:title' in data.keys() or not 
   raise Exception('Wrong data format from player')
 
 twt = u'#nowplaying ' +\
-  unicode(', '.join(data['xesam:artist'])) +\
+  ', '.join(data['xesam:artist']) +\
   u' - ' +\
-  unicode(data['xesam:title']) +\
-  ' (' + unicode(data['xesam:album']) + ')'
+  data['xesam:title'] +\
+  ' (' + data['xesam:album'] + ')'
 
 # print twt
 # sys.exit()
