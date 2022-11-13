@@ -1,6 +1,6 @@
 # nowplaying.py
 
-Minimal Ubuntu script that posts whatever you're listening to in Clementine or Spotify to Twitter and Mastodon.
+Minimal Ubuntu script that posts whatever you're listening to in Quod Libet, Clementine or Spotify to Twitter and Mastodon.
 
 ## Usage
 
