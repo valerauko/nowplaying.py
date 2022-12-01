@@ -6,6 +6,7 @@ import gi
 gi.require_version('Notify', '0.7')
 from gi.repository import Notify
 from mastodon import Mastodon
+from misskey import Misskey
 
 NS = 'org.mpris.MediaPlayer2.'
 
@@ -69,6 +70,9 @@ twt = u'#nowplaying ' +\
 
 # print twt
 # sys.exit()
+
+mk = Misskey("misskey.io", i=open(folder + 'misskey_token.txt', 'r').read().splitlines()[0])
+mk.notes_create(text=twt)
 
 app = open(folder + 'twitter_app.txt', 'r').read().splitlines()
 auth = tweepy.OAuthHandler(app[0], app[1])
