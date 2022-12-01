@@ -16,7 +16,7 @@ python3 ./nowplaying.py
 
 ## Setup
 
-You'll have to generate and enter your own tokens to mastodon_app.txt, mastodon_user.txt (Mastodon.py will generate these for you), twitter_app.txt (Twitter app OAuth tokens), twitter_user.txt (Twitter access tokens).
+You'll have to generate and enter your own tokens to mastodon_app.txt, mastodon_user.txt (Mastodon.py will generate these for you), twitter_app.txt (Twitter app OAuth tokens), twitter_user.txt (Twitter access tokens) and misskey_token.txt (Misskey's API token, can be generated according to [the library's readme](https://github.com/YuzuRyo61/Misskey.py#create-token)).
 
 ### twitter_app.txt
 ```
@@ -28,9 +28,17 @@ consumer_secret
 access_token
 access_token_secret
 ```
+### misskey_token.txt
+```
+access_token
+```
+
+### Misskey instance
+
+The default Misskey instance is Misskey.io. If you use something else, change it in the code (the `mk = Misskey` bit).
 
 ### Mastodon instance
-The default Mastodon instance is Pawoo -- if you use something else, don't forget to change it on [line 49](https://github.com/valerauko/nowplaying.py/blob/master/nowplaying.py#L49).
+The default Mastodon instance is Pawoo -- if you use something else, don't forget to change it in the code (the `api_base_url` bit).
 
 ## License
 
