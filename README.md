@@ -5,7 +5,7 @@ Minimal Ubuntu script that posts whatever you're listening to to social media.
 ## Usage
 
 ```
-usage: nowplaying [-h] [-c FILE] [--dry-run]
+usage: python3 nowplaying.py [-h] [-c FILE] [--dry-run]
 
 Script to post what you're listening to to social media
 
