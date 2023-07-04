@@ -8,7 +8,7 @@ INTERFACE = 'net.sacredchao.QuodLibet'
 
 class Quod(IPlayer):
     @classmethod
-    def running(cls):
+    def now(cls):
         try:
             list = dbus.BUS.get_object(
                 'org.freedesktop.DBus', '/org/freedesktop/DBus').ListNames(
@@ -22,11 +22,11 @@ class Quod(IPlayer):
         except DBusException as _:
             return None
 
-    def now_playing(self):
+    def playing(self):
         if not self.bus.IsPlaying(dbus_interface = INTERFACE):
             return None
         data = bus.CurrentSong(dbus_interface = INTERFACE)
         return Song(
-            artist = data['artist'],
+            artists = [data['artist']],
             album = data['album'],
             title = data['title'])
