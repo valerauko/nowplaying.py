@@ -15,7 +15,7 @@ options:
   --dry-run             if specified, the script won't actually post to social media
 ```
 
-[![image](https://github.com/valerauko/nowplaying.py/assets/6322484/695cf594-1445-4ed7-a996-1f26353e7316)](https://unsplash.com/photos/n4BDkIEls78)
+![image](https://github.com/valerauko/nowplaying.py/assets/6322484/695cf594-1445-4ed7-a996-1f26353e7316)
 
 ## Configuration
 
@@ -28,3 +28,8 @@ Misskey's API token can be generated according to [the library's readme](https:/
 ## License
 
 WTFPL. Refer to [LICENSE.md](https://github.com/valerauko/nowplaying.py/blob/master/LICENSE.md).
+
+### Cover photo
+
+[Photo](https://unsplash.com/photos/n4BDkIEls78) by [Denisse Leon](https://unsplash.com/@denisseleon?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText).
+  
