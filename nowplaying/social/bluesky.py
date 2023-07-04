@@ -15,3 +15,6 @@ class Bluesky(ISocial):
         date = datetime.now(timezone.utc).isoformat()
         self.agent.post(
             record = Post(text = text, created_at = date))
+
+    def __str__(self):
+        return f'Bluesky ({self.agent.session["handle"]})'

@@ -8,3 +8,6 @@ class ISocial:
     def post(self, text):
         """Posts text to social media"""
         pass
+
+    def __str__(self):
+        pass
