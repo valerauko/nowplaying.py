@@ -4,6 +4,7 @@
 import sys
 
 from nowplaying.config import read_config
+from nowplaying.notify import notify
 from nowplaying.player import Media
 from nowplaying.social import Social
 
@@ -36,3 +37,6 @@ def post_social():
             print(f'Malformed social config: {social_config}')
 
 post_social()
+
+if config['notify']:
+    notify()
