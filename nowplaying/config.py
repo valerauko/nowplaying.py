@@ -2,9 +2,6 @@
 
 import yaml
 
-def read():
-    with open('config.yaml', 'r') as f:
-        try:
-            return yaml.safe_load(f)
-        except yaml.YAMLError as e:
-            print("Configuration invalid", e)
+def read_config(path = 'config.yaml'):
+    with open(path, 'r') as stream:
+        return yaml.safe_load(stream)
