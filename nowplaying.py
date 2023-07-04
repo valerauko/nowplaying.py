@@ -3,12 +3,15 @@
 
 import sys
 
+import nowplaying.cli as cli
 from nowplaying.config import read_config
 from nowplaying.notify import notify
 from nowplaying.player import Media
 from nowplaying.social import Social
 
-config = read_config()
+args = cli.parse_args()
+
+config = read_config(path = args.config)
 
 def now_playing():
     for name in config['players'].keys():
@@ -30,9 +33,13 @@ def post_social():
         client = Social.client(social_config)
         if client is not None:
             try:
-                client.post(message)
+                if args.dry_run:
+                    print('Not posting because --dry-run was set')
+                else:
+                    client.post(message)
+                print(f'Posted to {client}')
             except Exception as e:
-                print(f'Failed to post to {config["provider"]}: {e}')
+                print(f'Failed to post to {client}: {e}')
         else:
             print(f'Malformed social config: {social_config}')
 
