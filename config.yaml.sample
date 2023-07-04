@@ -1,7 +1,7 @@
 social:
   - provider: bluesky
     service: https://bsky.social
-    user: your-registered@email.address
+    email: your-registered@email.address
     password: password
   - provider: misskey
     host: misskey.io
