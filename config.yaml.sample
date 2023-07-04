@@ -1,0 +1,13 @@
+social:
+  - provider: bluesky
+    service: https://bsky.social
+    user: your-registered@email.address
+    password: password
+  - provider: misskey
+    host: misskey.io
+    token: supersekrittoken
+players:
+  clementine: true
+  quod_libet: true
+  spotify: true
+notify: true
