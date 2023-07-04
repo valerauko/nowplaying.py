@@ -3,6 +3,7 @@
 from dbus import DBusException
 from .iplayer import IPlayer
 from . import dbus
+from .song import Song
 
 INTERFACE = 'net.sacredchao.QuodLibet'
 
@@ -25,7 +26,7 @@ class Quod(IPlayer):
     def playing(self):
         if not self.bus.IsPlaying(dbus_interface = INTERFACE):
             return None
-        data = bus.CurrentSong(dbus_interface = INTERFACE)
+        data = self.bus.CurrentSong(dbus_interface = INTERFACE)
         return Song(
             artists = [data['artist']],
             album = data['album'],
