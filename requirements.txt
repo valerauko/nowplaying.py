@@ -1,5 +1,5 @@
-chitose
+chitose==0.0.9
 dbus-python
-Misskey.py
+Misskey.py==4.1.0
 PyGObject
 pyyaml
