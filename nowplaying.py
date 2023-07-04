@@ -4,45 +4,35 @@
 import sys
 
 from nowplaying.config import read_config
-from nowplaying.player import *
-from nowplaying.social import *
+from nowplaying.player import Media
+from nowplaying.social import Social
 
 config = read_config()
 
-PLAYERS = [
-    ('clementine', Clementine),
-    ('quod_libet', Quod),
-    ('spotify', Spotify)]
-
 def now_playing():
-    for (key, klass) in PLAYERS:
-        if config['players'][key]:
-            player = klass.now()
-            if player:
-                song = player.playing()
-                if song:
-                    return song
+    for name in config['players'].keys():
+        player = Media.player(name)
+        if player:
+            song = player.playing()
+            if song:
+                return song
 
 song = now_playing()
 
 if song is None:
     sys.exit(0)
 
-SOCIAL = [
-    ('bluesky', Bluesky),
-    ('misskey', Misskey)]
-
 message = f'#nowplaying {song}'
 
 def post_social():
-    for (key, klass) in SOCIAL:
-        social_config = config['social'][key]
-        if social_config:
+    for social_config in config['social']:
+        client = Social.client(social_config)
+        if client is not None:
             try:
-                social = klass(social_config)
-                social.post(message)
-                print(f'Posted to {key}')
+                client.post(message)
             except Exception as e:
-                print(f'Failed to post to {key}: {e}')
+                print(f'Failed to post to {config["provider"]}: {e}')
+        else:
+            print(f'Malformed social config: {social_config}')
 
 post_social()

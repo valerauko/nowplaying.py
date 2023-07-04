@@ -3,4 +3,11 @@
 from .bluesky import Bluesky
 from .misskey import Misskey
 
-__all__ = ['Bluesky', 'Misskey']
+class Social:
+    @classmethod
+    def client(cls, config):
+        match config['provider']:
+            case 'bluesky':
+                return Bluesky(config)
+            case 'misskey':
+                return Misskey(config)
