@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 #coding=utf-8
-import sys, os, tweepy, urllib
+
+# packages (pip install)
+# * PyGObject (needs libgirepository1.0-dev from apt)
+# * dbus-python
+# * Misskey.py
+
+import sys, os, urllib
 from dbus import Bus, DBusException
 import gi
 gi.require_version('Notify', '0.7')
