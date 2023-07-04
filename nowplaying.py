@@ -34,10 +34,10 @@ def post_social():
         if client is not None:
             try:
                 if args.dry_run:
-                    print('Not posting because --dry-run was set')
+                    print('Not posting to {client} because --dry-run was set')
                 else:
                     client.post(message)
-                print(f'Posted to {client}')
+                    print(f'Posted to {client}')
             except Exception as e:
                 print(f'Failed to post to {client}: {e}')
         else:
