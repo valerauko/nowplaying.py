@@ -4,6 +4,7 @@
 # packages (pip install)
 # * PyGObject (needs libgirepository1.0-dev from apt)
 # * dbus-python
+# * Mastodon.py
 # * Misskey.py
 # * chitose
 

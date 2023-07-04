@@ -1,0 +1,5 @@
+chitose
+dbus-python
+Misskey.py
+PyGObject
+pyyaml
