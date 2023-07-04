@@ -25,6 +25,13 @@ The script needs a config file in the same location. Refer to the [config.yaml.s
 
 Misskey's API token can be generated according to [the library's readme](https://github.com/YuzuRyo61/Misskey.py#create-token).
 
+## Dev
+
+1. `python3 -m venv .`
+2. `bin/pip3 install -r requirements.txt`
+
+Enjoy.
+
 ## License
 
 WTFPL. Refer to [LICENSE.md](https://github.com/valerauko/nowplaying.py/blob/master/LICENSE.md).
@@ -32,4 +39,3 @@ WTFPL. Refer to [LICENSE.md](https://github.com/valerauko/nowplaying.py/blob/mas
 ### Cover photo
 
 [Photo](https://unsplash.com/photos/n4BDkIEls78) by [Denisse Leon](https://unsplash.com/@denisseleon?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText).
-  
