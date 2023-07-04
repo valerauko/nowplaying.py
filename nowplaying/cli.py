@@ -9,7 +9,7 @@ parser = ArgumentParser(
 parser.add_argument(
     '-c', '--config',
     default = './config.yaml', dest = 'config',
-    help = 'Location of the config file. Default ./config.yaml',
+    help = 'location of the config file. Default ./config.yaml',
     metavar = 'FILE')
 
 parser.add_argument(

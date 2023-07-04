@@ -1,44 +1,29 @@
 # nowplaying.py
 
-Minimal Ubuntu script that posts whatever you're listening to in Quod Libet, Clementine or Spotify to Twitter and Mastodon.
+Minimal Ubuntu script that posts whatever you're listening to to social media.
 
 ## Usage
 
 ```
-python3 ./nowplaying.py
+usage: nowplaying [-h] [-c FILE] [--dry-run]
+
+Script to post what you're listening to to social media
+
+options:
+  -h, --help            show this help message and exit
+  -c, --config FILE     location of the config file. Default ./config.yaml
+  --dry-run             if specified, the script won't actually post to social media
 ```
 
-## Requirements
+[![image](https://github.com/valerauko/nowplaying.py/assets/6322484/695cf594-1445-4ed7-a996-1f26353e7316)](https://unsplash.com/photos/n4BDkIEls78)
 
-* [Tweepy](https://github.com/tweepy/tweepy)
-* [Mastodon.py](https://github.com/halcy/Mastodon.py)
-* It also uses Notify from Python gi
+## Configuration
 
-## Setup
+The script needs a config file in the same location. Refer to the [config.yaml.sample](config.yaml.sample) for an example.
 
-You'll have to generate and enter your own tokens to mastodon_app.txt, mastodon_user.txt (Mastodon.py will generate these for you), twitter_app.txt (Twitter app OAuth tokens), twitter_user.txt (Twitter access tokens) and misskey_token.txt (Misskey's API token, can be generated according to [the library's readme](https://github.com/YuzuRyo61/Misskey.py#create-token)).
+### Misskey token
 
-### twitter_app.txt
-```
-consumer_key
-consumer_secret
-```
-### twitter_user.txt
-```
-access_token
-access_token_secret
-```
-### misskey_token.txt
-```
-access_token
-```
-
-### Misskey instance
-
-The default Misskey instance is Misskey.io. If you use something else, change it in the code (the `mk = Misskey` bit).
-
-### Mastodon instance
-The default Mastodon instance is Pawoo -- if you use something else, don't forget to change it in the code (the `api_base_url` bit).
+Misskey's API token can be generated according to [the library's readme](https://github.com/YuzuRyo61/Misskey.py#create-token).
 
 ## License
 
