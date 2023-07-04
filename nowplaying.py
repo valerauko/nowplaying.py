@@ -5,6 +5,7 @@
 # * PyGObject (needs libgirepository1.0-dev from apt)
 # * dbus-python
 # * Misskey.py
+# * chitose
 
 import sys, os, urllib
 from dbus import Bus, DBusException
@@ -13,6 +14,9 @@ gi.require_version('Notify', '0.7')
 from gi.repository import Notify
 from mastodon import Mastodon
 from misskey import Misskey
+from chitose import BskyAgent
+from chitose.app.bsky.feed.post import Post
+from datetime import datetime, timezone
 
 NS = 'org.mpris.MediaPlayer2.'
 
@@ -92,6 +96,11 @@ mastodon = Mastodon(client_id = folder + 'mastodon_app.txt',
                     access_token = folder + 'mastodon_user.txt',
                     api_base_url = 'https://pawoo.net/') # edit this if needed
 mastodon.toot(twt)
+
+agent = BskyAgent(service = 'https://bsky.social')
+auth = open(folder + 'bluesky.txt', 'r').read().splitlines()
+agent.login(identifier = auth[0], password = auth[1])
+agent.post(record = Post(text = twt, created_at = datetime.now(timezone.utc).isoformat()))
 
 Notify.init('#nowplaying')
 Notify.Notification.new('#nowplaying', '#nowplaying sent').show()
