@@ -6,6 +6,9 @@ social:
   - provider: misskey
     host: misskey.io
     token: supersekrittoken
+  - provider: misskey
+    host: misskey.art
+    token: supersekrittoken
 players:
   clementine: true
   quod_libet: true

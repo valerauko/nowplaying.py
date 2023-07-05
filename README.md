@@ -23,7 +23,7 @@ The script needs a config file in the same location. Refer to the [config.yaml.s
 
 ### Misskey token
 
-Misskey's API token can be generated according to [the library's readme](https://github.com/YuzuRyo61/Misskey.py#create-token).
+Misskey's API token can be generated from the web UI. Go to Settings > API and click "Generate access token". It *should* only need the "Create and delete notes" permission.
 
 ## Dev
 
