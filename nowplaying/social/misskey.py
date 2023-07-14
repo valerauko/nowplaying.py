@@ -13,5 +13,18 @@ class Misskey(ISocial):
         self.client.notes_create(text = text)
 
     def __str__(self):
-        host = urlparse(self.client.meta()['uri']).hostname
-        return f'Misskey (@{self.client.i()["username"]}@{host})'
+        host = self.client.address
+        user = self.user()
+        if user is not None:
+            return f'Misskey (@{user}@{host})'
+        else:
+            return f'Misskey ({host})'
+
+    def user(self):
+        try:
+            return self.client.i()["username"]
+        except Exception as e:
+            print(f'Failed to fetch username: {e}')
+            print(
+                'This tends to happen if the server uses',
+                'a Misskey fork such as Foundkey.')
