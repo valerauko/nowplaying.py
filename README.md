@@ -32,6 +32,15 @@ Misskey's API token can be generated from the web UI. Go to Settings > API and c
 
 Enjoy.
 
+### Native packages needed
+
+* `python3.12-venv`
+* `libgirepository-1.0-dev`
+* `gobject-introspection`
+* `libcairo2-dev`
+* `libglib2.0-dev`
+* `libdbus-1-dev`
+
 ## License
 
 WTFPL. Refer to [LICENSE.md](https://github.com/valerauko/nowplaying.py/blob/master/LICENSE.md).
